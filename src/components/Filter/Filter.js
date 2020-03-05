@@ -1,11 +1,18 @@
 import React from "react";
-import propTypes from "prop-types"
+import propTypes from "prop-types";
 import withTheme from "../../hoc/withTheme";
-import styles from "./Filter.module.css"
+import styles from "./Filter.module.css";
 
-function Filter({ value, onChangeFilter, style }) {
+function Filter({ value, onChangeFilter, theme }) {
+  const { themeConfig, type } = theme;
+
   return (
-    <div style={style}>
+    <div
+      style={{
+        color: themeConfig[type].fontColor,
+        background: themeConfig[type].bodybg
+      }}
+    >
       <label className={styles.label}>
         Find contacts by name
         <input
@@ -22,6 +29,6 @@ function Filter({ value, onChangeFilter, style }) {
 Filter.propTypes = {
   value: propTypes.string.isRequired,
   onChangeFilter: propTypes.func.isRequired
-}
+};
 
-export default withTheme(Filter)
+export default withTheme(Filter);

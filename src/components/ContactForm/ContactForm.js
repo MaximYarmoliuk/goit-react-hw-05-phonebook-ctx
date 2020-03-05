@@ -25,38 +25,45 @@ class ContactForm extends Component {
   };
 
   render() {
+    const { themeConfig, type } = this.props.theme;
+
     return (
-      <form
-        className={styles.contactForm}
-        onSubmit={this.handleSubmit}
-        style={this.props.style}
+      <div
+        style={{
+          color: themeConfig[type].fontColor,
+          background: themeConfig[type].bodybg
+        }}
       >
-        <label className={styles.contactLabel}>
-          Name
-          <input
-            className={styles.contactInput}
-            type="text"
-            value={this.state.name}
-            name="name"
-            onChange={this.handleChange}
-          />
-        </label>
+        <h2>Phonebook</h2>
 
-        <label className={styles.contactLabel}>
-          Number
-          <input
-            className={styles.contactInput}
-            type="number"
-            value={this.state.number}
-            name="number"
-            onChange={this.handleChange}
-          />
-        </label>
+        <form className={styles.contactForm} onSubmit={this.handleSubmit}>
+          <label className={styles.contactLabel}>
+            Name
+            <input
+              className={styles.contactInput}
+              type="text"
+              value={this.state.name}
+              name="name"
+              onChange={this.handleChange}
+            />
+          </label>
 
-        <button className={styles.contactSubmit} type="submit">
-          Add contact
-        </button>
-      </form>
+          <label className={styles.contactLabel}>
+            Number
+            <input
+              className={styles.contactInput}
+              type="number"
+              value={this.state.number}
+              name="number"
+              onChange={this.handleChange}
+            />
+          </label>
+
+          <button className={styles.contactSubmit} type="submit">
+            Add contact
+          </button>
+        </form>
+      </div>
     );
   }
 }

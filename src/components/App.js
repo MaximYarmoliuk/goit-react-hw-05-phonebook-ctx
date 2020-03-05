@@ -5,13 +5,11 @@ import ContactList from "./ContactList/ContactList";
 import Filter from "./Filter/Filter";
 import ThemeSelector from "./ThemeSelector/ThemeSelector";
 import ThemeContext from "../contexts/ThemeContext/ThemeContext";
-import { themeConfig } from "../contexts/ThemeContext/ThemeContext";
 
 export default class App extends Component {
   state = {
     contacts: [],
-    filter: "",
-    theme: "light"
+    filter: ""
   };
 
   componentDidMount() {
@@ -28,12 +26,6 @@ export default class App extends Component {
       localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
     }
   }
-
-  toggleTheme = () => {
-    this.setState({
-      theme: this.state.theme === "dark" ? "light" : "dark"
-    });
-  };
 
   addContact = ({ name, number }) => {
     const checkOnExist = this.state.contacts.find(
@@ -88,17 +80,12 @@ export default class App extends Component {
     const filteredContacts = this.getFilteredContacts();
 
     return (
-      <ThemeContext.Provider
-        value={{
-          type: this.state.theme,
-          config: themeConfig[this.state.theme]
-        }}
-      >
+      <ThemeContext>
         <div>
           <ThemeSelector toggleTheme={this.toggleTheme} />
-          <h1>Phonebook</h1>
+          
           <ContactForm addContact={this.addContact} />
-          <h2>Contacts</h2>
+          
           {contacts.length >= 2 && (
             <Filter value={filter} onChangeFilter={this.changeFilter} />
           )}
@@ -108,7 +95,7 @@ export default class App extends Component {
             onRemoveContact={this.removeContact}
           />
         </div>
-      </ThemeContext.Provider>
+      </ThemeContext>
     );
   }
 }

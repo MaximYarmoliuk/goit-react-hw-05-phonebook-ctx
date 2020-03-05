@@ -1,21 +1,19 @@
 import React from "react";
-import ThemeContext from "../../contexts/ThemeContext/ThemeContext";
 import styles from "./ThemeSelector.module.css";
+import withTheme from "../../hoc/withTheme";
 
-export default function ThemeSelector({ toggleTheme }) {
+const ThemeSelector = ({ theme }) => {
   return (
-    <ThemeContext.Consumer>
-      {theme => (
-        <div className={styles.center}>
-          <span className="label">{theme.type}</span>
-          <input
-            type="checkbox"
-            className={styles.checkbox}
-            checked={theme.type === "dark"}
-            onChange={() => toggleTheme()}
-          />
-        </div>
-      )}
-    </ThemeContext.Consumer>
+    <div className={styles.center}>
+      <span className="label">{theme.type}</span>
+      <input
+        type="checkbox"
+        className={styles.checkbox}
+        checked={theme.type === "dark"}
+        onChange={() => theme.toggleTheme()}
+      />
+    </div>
   );
-}
+};
+
+export default withTheme(ThemeSelector);
